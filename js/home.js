@@ -25,10 +25,10 @@
   }
 
   PAGES["home"] = {
-    title: "交易研究室", lede: "", chips: [], bare: true, wide: true,
+    title: "TRADING NOTES", lede: "", chips: [], bare: true, wide: true,
     html: `<section class="hm-hero">
   <div class="hm-copy">
-    <h1 class="hm-h">交易研究室</h1>
+    <h1 class="hm-h">TRADING NOTES</h1>
     <p class="hm-lede">從訂單流看<b>誰在主動</b>，從選擇權看<b>哪裡有對沖流</b>，再用一套每天照做的流程把兩者接起來。三條圖解路線、四科筆記、六個學習工具，零基礎也能跟上。</p>
     <div class="hm-cta"><a class="btn primary" href="#start-quiz">先做起點測驗</a><a class="btn" href="#learn">看課程地圖</a></div>
     <p class="small hm-note">每一關都有逐步動畫、關鍵處的小問題和可以操作的練習區。</p>

@@ -1,4 +1,4 @@
-# 交易研究室 Trading Study
+# TRADING NOTES
 
 訂單流、選擇權和價格行為的圖解學習網站，零基礎也能跟上。
 
