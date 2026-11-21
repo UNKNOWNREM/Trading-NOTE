@@ -2,9 +2,9 @@
 (function () {
   const PAGES = (window.__PAGES = window.__PAGES || {});
   const SUBJ = [
-    { id: "pa", title: "價格行為（Price Action）", en: "Al Brooks — Reading Price Charts Bar by Bar", desc: "逐根 K 線解讀多空博弈：趨勢、區間、訊號 K 線的完整體系。", tags: ["趨勢", "形態", "K 線"] },
-    { id: "wyckoff", title: "威科夫（Wyckoff）", en: "Wyckoff Method", desc: "吸籌與派發結構、彈簧與推升、量價分析，以及和 SMC／ICT 的對照。", tags: ["量價", "吸籌派發", "結構"] },
-    { id: "bb", title: "布林通道（BB）", en: "Bollinger Bands", desc: "中軌 ± 2 倍標準差，看波動收縮（擠壓）與擴張突破。", tags: ["波動率", "標準差"] },
+    { id: "pa", title: "Price Action 價格行為", en: "Al Brooks — Reading Price Charts Bar by Bar", desc: "逐根 K 線解讀多空博弈：趨勢、區間、訊號 K 線的完整體系。", tags: ["趨勢", "形態", "K 線"] },
+    { id: "wyckoff", title: "Wyckoff 威科夫", en: "Wyckoff Method", desc: "吸籌與派發結構、彈簧與推升、量價分析，以及和 SMC／ICT 的對照。", tags: ["量價", "吸籌派發", "結構"] },
+    { id: "bb", title: "布林帶 (BB)", en: "Bollinger Bands", desc: "中軌 ± 2 倍標準差，看波動收縮（擠壓）與擴張突破。", tags: ["波動率", "標準差"] },
     { id: "rsi", title: "RSI 相對強弱指標", en: "Relative Strength Index", desc: "14 期漲跌幅比率，判斷超買、超賣與背離。", tags: ["動量", "背離"] }];
   const cache = {};
   const store = { get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } }, set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* ignore */ } } };
@@ -35,7 +35,7 @@
     PAGES["kb-" + S.id] = {
       title: S.title,
       lede: S.desc,
-      chips: [["kb", "知識庫"], ["", S.en]],
+      chips: [["kb", "筆記科目"], ["", S.en]],
       html: `<div class="kb-wrap"><aside class="kb-toc" aria-label="章節"><p class="small">載入中…</p></aside><article class="kb-art prose"><p class="small">載入中…</p></article></div>`,
       mount(root) {
         const toc = root.querySelector(".kb-toc"), art = root.querySelector(".kb-art"), RK = "kb-read-" + S.id, PK = "kb-pos-" + S.id;

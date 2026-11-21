@@ -1,15 +1,17 @@
-/* 新首頁：三條路線、知識庫、學習工具 */
+/* 首頁：TRADING NOTES 科目總覽。圖解課程「訂單流與選擇權」是其中一個（新的）科目。 */
 (function () {
   const PAGES = (window.__PAGES = window.__PAGES || {});
   const C = window.COURSE;
   if (PAGES.home) PAGES["home-old"] = Object.assign({}, PAGES.home, { title: "關鍵區疊圖", hero: false });
+  const SUBJ = window.SUBJECTS || [], CATS = window.SUBJECT_CATEGORIES || [];
+  const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;");
+  const read = (id) => { try { return (JSON.parse(localStorage.getItem("kb-read-" + id) || "[]") || []).length; } catch (e) { return 0; } };
   const ROUTES = [
-    { c: C.OFC, n: "訂單流", cls: "buy", d: "從期貨合約、Footprint、Delta 到價值區和五個確認訊號：看懂誰在主動、哪裡有人在乎。" },
-    { c: C.OPC, n: "選擇權", cls: "gamma", d: "從買權賣權、Greeks 到市商對沖、GEX 牆與 Flip：知道哪些價位可能有對沖流。", pre: "op-0" },
-    { c: C.SOP, n: "整合 SOP", cls: "brand", d: "盤前讀環境、畫關鍵位，盤中逐根看 K 線等觸發，盤後紀錄：把前兩條路線接成每天照做的流程。" }];
-  const TOOLS = [["start-quiz", "起點測驗", "10 題判斷從哪一關開始"], ["review", "錯題本", "答錯的題目隔天再考"], ["gloss-all", "全站名詞表", "搜尋所有名詞卡"], ["tools", "工具箱", "口數、R 值、換算、時間"], ["nt-map", "NinjaTrader 對照", "概念對到軟體功能"], ["journal", "每日紀錄表", "記錄並匯出 CSV"]];
+    { c: C.OFC, n: "訂單流", cls: "buy", d: "Footprint、Delta、價值區、五個確認訊號" },
+    { c: C.OPC, n: "選擇權", cls: "gamma", d: "Greeks、市商對沖、GEX 牆與 Flip", pre: "op-0" },
+    { c: C.SOP, n: "整合 SOP", cls: "brand", d: "盤前讀環境、盤中等觸發、盤後紀錄" }];
 
-  // 首頁主視覺：一段價格梯子，左邊主動賣、右邊主動買，金線是關鍵位，紫色帶是 Gamma 牆
+  // 圖解課程的插圖：關鍵位上的 footprint，左邊主動賣、右邊主動買，金線是關鍵位，紫色帶是 Gamma 牆
   function ladder() {
     const rows = [[18, 4], [26, 9], [44, 16], [61, 22], [38, 71], [24, 58], [15, 46], [9, 30], [6, 19], [4, 11]];
     let s = `<rect x="150" y="96" width="320" height="58" rx="8" class="hm-wall"/><text x="480" y="130" class="hm-t-g">Gamma 牆</text>`;
@@ -19,36 +21,56 @@
       s += `<text x="270" y="${y + 16}" text-anchor="middle" class="hm-p">${p.toLocaleString()}</text>`;
       s += `<rect x="304" y="${y}" width="${b * 1.5}" height="22" rx="4" class="hm-buy"/><text x="${308 + b * 1.5}" y="${y + 16}" class="hm-n">${b * 10}</text>`;
     });
-    s += `<line x1="150" x2="470" y1="${30 + 4 * 30 - 4}" y2="${30 + 4 * 30 - 4}" class="hm-key"/><text x="480" y="${30 + 4 * 30 + 2}" class="hm-t-k">前日 VAH</text>`;
+    s += `<line x1="150" x2="470" y1="146" y2="146" class="hm-key"/><text x="480" y="152" class="hm-t-k">前日 VAH</text>`;
     s += `<text x="168" y="342" text-anchor="middle" class="hm-cap">主動賣</text><text x="372" y="342" text-anchor="middle" class="hm-cap">主動買</text>`;
     return `<svg class="hm-svg" viewBox="100 10 470 345" role="img" aria-label="示意：關鍵位上的 footprint，賣方吸收、買方轉強">${s}</svg>`;
   }
 
+  const course = SUBJ.find((s) => s.kind === "course");
+  const notes = SUBJ.filter((s) => s.status === "active" && s.kind !== "course");
+
+  function catBlock(cat) {
+    const list = SUBJ.filter((s) => s.category === cat && s.kind !== "course"); if (!list.length) return "";
+    const on = list.filter((s) => s.status === "active"), mg = list.filter((s) => s.status === "merged"), soon = list.filter((s) => s.status === "coming");
+    return `<section class="hm-cat"><h3>${esc(cat)}</h3>
+${on.length ? `<div class="hm-subj">${on.map((s) => `<a class="hm-s" href="${s.href}" data-id="${s.id}"><b>${esc(s.title)}</b><span class="hm-s-sub">${esc(s.subtitle)}</span><span class="hm-s-d">${esc(s.desc)}</span><span class="hm-s-p small"></span></a>`).join("")}</div>` : ""}
+${mg.length ? `<ul class="hm-merged">${mg.map((s) => `<li><a href="${s.href}">${esc(s.title)}</a><span>已併入新課程（${esc(s.where)}）</span></li>`).join("")}</ul>` : ""}
+${soon.length ? `<p class="hm-soon"><span>籌備中</span>${soon.map((s) => `<span class="hm-chip" title="${esc(s.desc)}">${esc(s.title)}</span>`).join("")}</p>` : ""}
+</section>`;
+  }
+
   PAGES["home"] = {
-    title: "TRADING NOTES", lede: "", chips: [], bare: true, wide: true,
-    html: `<section class="hm-hero">
-  <div class="hm-copy">
-    <h1 class="hm-h">TRADING NOTES</h1>
-    <p class="hm-lede">從訂單流看<b>誰在主動</b>，從選擇權看<b>哪裡有對沖流</b>，再用一套每天照做的流程把兩者接起來。三條圖解路線、四科筆記、六個學習工具，零基礎也能跟上。</p>
-    <div class="hm-cta"><a class="btn primary" href="#start-quiz">先做起點測驗</a><a class="btn" href="#learn">看課程地圖</a></div>
-    <p class="small hm-note">每一關都有逐步動畫、關鍵處的小問題和可以操作的練習區。</p>
+    title: "TRADING NOTES", lede: "", chips: [], bare: true,
+    html: `<section class="hm-top">
+  <h1 class="hm-h">TRADING NOTES</h1>
+  <p class="hm-lede">系統化學習交易知識，建立自己的市場認知框架。</p>
+  <p class="hm-stats"><span><b>${SUBJ.filter((s) => s.status === "active").length}</b> 個開放科目</span><span><b class="hm-done">0</b> 個已讀小節</span><span><b class="hm-lv">0</b> 關圖解課程已完成</span></p>
+</section>
+${course ? `<section class="hm-course">
+  <div class="hm-c-copy">
+    <p class="hm-new">新課程</p>
+    <h2><a href="${course.href}">${esc(course.title)}</a></h2>
+    <p class="hm-c-sub">${esc(course.subtitle)}</p>
+    <p class="hm-c-d">${esc(course.desc)}</p>
+    <ol class="hm-rt">${ROUTES.map((r, k) => `<li class="rt-${r.cls}"><a href="#${r.pre || r.c.lessons[0].id}" data-k="${k}"><b>${r.n}</b><span>${r.c.lessons.length} 關${r.pre ? "＋序章" : ""}　${r.d}</span><i class="hm-bar"><i></i></i></a></li>`).join("")}</ol>
+    <div class="hm-cta"><a class="btn primary" href="#learn">進入課程</a><a class="btn" href="#start-quiz">先做起點測驗</a></div>
   </div>
   <div class="hm-art">${ladder()}</div>
-</section>
-<h2 class="hm-sec">三條路線</h2>
-<div class="hm-routes">${ROUTES.map((r, k) => `<a class="hm-route ${r.cls}" href="#${r.pre || r.c.lessons[0].id}" data-k="${k}"><span class="hm-num">${k + 1}</span><b>${r.n}</b><span class="hm-len">${r.c.lessons.length} 關${r.pre ? "＋序章" : ""}</span><span class="hm-d">${r.d}</span><span class="hm-bar"><i></i></span><span class="hm-prog small"></span></a>`).join("")}</div>
-<h2 class="hm-sec">知識庫</h2>
-<div class="hm-kb">${(window.KB ? window.KB.SUBJ : []).map((x) => `<a href="#kb-${x.id}"><b>${x.title}</b><span>${x.desc}</span></a>`).join("")}</div>
-<h2 class="hm-sec">學習工具</h2>
-<div class="hm-tools">${TOOLS.map(([id, t, d]) => `<a href="#${id}"><b>${t}</b><span>${d}</span></a>`).join("")}</div>
-<p class="small hm-foot">教育用途，不構成投資建議。範例數字多為示意，GEX 與選擇權部位都是依公開資料和假設推算的估計值。</p>`,
+</section>` : ""}
+<h2 class="hm-sec">所有科目</h2>
+${CATS.map(catBlock).join("")}
+<p class="small hm-foot">教育用途，不構成投資建議。範例數字多為示意，GEX 與選擇權部位是依公開資料和假設推算的估計值。</p>`,
     mount(root) {
-      root.querySelectorAll(".hm-route").forEach((a) => {
-        const r = ROUTES[+a.dataset.k], p = C.prog(r.c), n = r.c.lessons.filter((l) => p.done[l.id]).length, tot = r.c.lessons.length;
-        a.querySelector(".hm-bar i").style.width = (100 * n / tot) + "%";
-        a.querySelector(".hm-prog").textContent = n ? `完成 ${n} / ${tot}` : "還沒開始";
-        if (n && n < tot) { const nx = r.c.lessons.find((l) => !p.done[l.id]); if (nx) a.href = "#" + nx.id; }
+      let done = 0;
+      root.querySelectorAll(".hm-s").forEach((a) => { const n = read(a.dataset.id); done += n; a.querySelector(".hm-s-p").textContent = n ? `已讀 ${n} 節` : ""; });
+      root.querySelector(".hm-done").textContent = done;
+      let lv = 0;
+      root.querySelectorAll(".hm-rt a").forEach((a) => {
+        const r = ROUTES[+a.dataset.k], p = C.prog(r.c), n = r.c.lessons.filter((l) => p.done[l.id]).length; lv += n;
+        a.querySelector(".hm-bar i").style.width = (100 * n / r.c.lessons.length) + "%";
+        if (n && n < r.c.lessons.length) { const nx = r.c.lessons.find((l) => !p.done[l.id]); if (nx) a.href = "#" + nx.id; }
       });
+      root.querySelector(".hm-lv").textContent = lv;
     }
   };
 })();

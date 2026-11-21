@@ -13,13 +13,14 @@
     "ig-crt1p": "CRT 快訊 Footprint 欄位（單頁）", "ig-crtreq": "CRT 指標欄位需求清單", "ig-nqof": "NQ 快訊 OF 欄位 v1.2", "ig-tvlimit": "TradingView Footprint 限制",
     "pd-atas-cluster": "ATAS Cluster Analysis 指南", "pd-atas-mp": "ATAS Market／Volume Profile", "pd-of-setups": "Order Flow Setups 逐章筆記", "pd-vp": "Volume Profile 逐章筆記",
     "rs-basic": "微觀結構基礎報告", "rs-adv": "微觀結構進階研究",
-    "learn": "課程地圖", "kb": "總覽", "kb-pa": "價格行為", "kb-wyckoff": "威科夫", "kb-bb": "布林通道", "kb-rsi": "RSI", "home-old": "關鍵區疊圖", "start-quiz": "起點測驗", "review": "錯題本", "gloss-all": "全站名詞表", "tools": "工具箱", "nt-map": "NinjaTrader 對照", "journal": "每日紀錄表",
+    "learn": "課程地圖（從這裡開始）", "kb": "總覽", "kb-pa": "Price Action", "kb-wyckoff": "Wyckoff", "kb-bb": "布林帶 (BB)", "kb-rsi": "RSI", "home-old": "關鍵區疊圖", "start-quiz": "起點測驗", "review": "錯題本", "gloss-all": "全站名詞表", "tools": "工具箱", "nt-map": "NinjaTrader 對照", "journal": "每日紀錄表",
     "of-fut": "1　期貨合約與下單", "of-1": "2　價格怎麼動", "of-2": "3　Footprint", "of-3": "4　Delta", "of-cvd": "5　CVD 與背離", "of-4": "6　失衡", "of-6": "7　Volume Profile", "of-vwap": "8　VWAP", "of-7": "9　Market Profile", "of-sess": "10　交易時段", "of-event": "11　經濟事件", "of-5": "12　五個確認訊號", "of-8": "13　風險管理", "of-9": "14　一筆完整交易", "of-psy": "15　交易心理",
     "op-0": "序章　衍生品與對沖", "op-1": "1　買權與賣權", "op-2": "2　時間價值", "op-3": "3　Delta 與 Gamma", "op-4": "4　隱含波動率", "op-skew": "5　波動率偏斜", "op-5": "6　市商的對沖帳本", "op-6": "7　從 OI 到 GEX", "op-7": "8　到期日效應", "op-vc": "9　Vanna 與 Charm", "op-8": "10　GEX 地形圖", "op-real": "11　真實地形", "op-dex": "12　DEX 與 GammaLens", "learn-1": "1　一天的流程", "learn-2": "2　讀環境定劇本", "learn-3": "3　畫關鍵位", "learn-4": "4　劇本 A 震盪日", "learn-5": "5　劇本 B 趨勢日", "learn-6": "6　風控隨環境", "learn-7": "7　復盤與總演練"
   };
   const OPT_ORDER = ["home-old", "ob-basics", "ob-greeks", "ob-hedge", "ob-zones", "ob-lab", "ob-evidence"];
   const NAV = [
-    { part: "", cls: "learn", title: "圖解課程（從這裡開始）", groups: [
+    { part: "", cls: "kb", title: "筆記科目", groups: [{ t: null, ids: ["kb-pa", "kb-wyckoff", "kb-bb", "kb-rsi"] }] },
+    { part: "", cls: "learn", title: "訂單流與選擇權（新課程）", groups: [
       { t: null, ids: ["learn"] },
       { t: "路線 1　訂單流（15 關）", ids: ["of-fut", "of-1", "of-2", "of-3", "of-cvd", "of-4", "of-6", "of-vwap", "of-7", "of-sess", "of-event", "of-5", "of-8", "of-9", "of-psy"] },
       { t: "路線 2　選擇權（序章＋12 關）", ids: ["op-0", "op-1", "op-2", "op-3", "op-4", "op-skew", "op-5", "op-6", "op-7", "op-vc", "op-8", "op-real", "op-dex"] },
@@ -28,8 +29,7 @@
     { part: "A", cls: "buy", title: "訂單流", groups: [
       { t: null, ids: ["in-00", "in-01", "in-02", "in-02b", "in-03", "in-04", "in-05", "in-06", "in-07", "in-08", "in-09", "in-10", "in-11", "in-gloss"] }] },
     { part: "B", cls: "gamma", title: "選擇權", groups: [{ t: null, ids: OPT_ORDER }] },
-    { part: "C", cls: "both", title: "整合", groups: [{ t: null, ids: ["cx-sop"] }] },
-    { part: "", cls: "kb", title: "知識庫", groups: [{ t: null, ids: ["kb", "kb-pa", "kb-wyckoff", "kb-bb", "kb-rsi"] }] }
+    { part: "C", cls: "both", title: "整合", groups: [{ t: null, ids: ["cx-sop"] }] }
   ];
   // 只顯示實際存在的頁面（公開版沒有 vault 筆記），空的群組和分區整個隱藏
   NAV.forEach((p) => { p.groups.forEach((g) => { g.ids = g.ids.filter((id) => PAGES[id] || byId[id]); }); p.groups = p.groups.filter((g) => g.ids.length); });
