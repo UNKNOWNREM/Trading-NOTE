@@ -1,4 +1,4 @@
-/* 首頁：TRADING NOTES 科目總覽。圖解課程「訂單流與選擇權」是其中一個（新的）科目。 */
+/* 首頁：TRADING NOTES 科目總覽。「訂單流與選擇權」圖解是其中一個（新增的）科目。 */
 (function () {
   const PAGES = (window.__PAGES = window.__PAGES || {});
   const C = window.COURSE;
@@ -11,7 +11,7 @@
     { c: C.OPC, n: "選擇權", cls: "gamma", d: "Greeks、市商對沖、GEX 牆與 Flip", pre: "op-0" },
     { c: C.SOP, n: "整合 SOP", cls: "brand", d: "盤前讀環境、盤中等觸發、盤後紀錄" }];
 
-  // 圖解課程的插圖：關鍵位上的 footprint，左邊主動賣、右邊主動買，金線是關鍵位，紫色帶是 Gamma 牆
+  // 圖解的插圖：關鍵位上的 footprint，左邊主動賣、右邊主動買，金線是關鍵位，紫色帶是 Gamma 牆
   function ladder() {
     const rows = [[18, 4], [26, 9], [44, 16], [61, 22], [38, 71], [24, 58], [15, 46], [9, 30], [6, 19], [4, 11]];
     let s = `<rect x="150" y="96" width="320" height="58" rx="8" class="hm-wall"/><text x="480" y="130" class="hm-t-g">Gamma 牆</text>`;
@@ -34,7 +34,7 @@
     const on = list.filter((s) => s.status === "active"), mg = list.filter((s) => s.status === "merged"), soon = list.filter((s) => s.status === "coming");
     return `<section class="hm-cat"><h3>${esc(cat)}</h3>
 ${on.length ? `<div class="hm-subj">${on.map((s) => `<a class="hm-s" href="${s.href}" data-id="${s.id}"><b>${esc(s.title)}</b><span class="hm-s-sub">${esc(s.subtitle)}</span><span class="hm-s-d">${esc(s.desc)}</span><span class="hm-s-p small"></span></a>`).join("")}</div>` : ""}
-${mg.length ? `<ul class="hm-merged">${mg.map((s) => `<li><a href="${s.href}">${esc(s.title)}</a><span>已併入新課程（${esc(s.where)}）</span></li>`).join("")}</ul>` : ""}
+${mg.length ? `<ul class="hm-merged">${mg.map((s) => `<li><a href="${s.href}">${esc(s.title)}</a><span>已收進訂單流與選擇權（${esc(s.where)}）</span></li>`).join("")}</ul>` : ""}
 ${soon.length ? `<p class="hm-soon"><span>籌備中</span>${soon.map((s) => `<span class="hm-chip" title="${esc(s.desc)}">${esc(s.title)}</span>`).join("")}</p>` : ""}
 </section>`;
   }
@@ -44,16 +44,16 @@ ${soon.length ? `<p class="hm-soon"><span>籌備中</span>${soon.map((s) => `<sp
     html: `<section class="hm-top">
   <h1 class="hm-h">TRADING NOTES</h1>
   <p class="hm-lede">系統化學習交易知識，建立自己的市場認知框架。</p>
-  <p class="hm-stats"><span><b>${SUBJ.filter((s) => s.status === "active").length}</b> 個開放科目</span><span><b class="hm-done">0</b> 個已讀小節</span><span><b class="hm-lv">0</b> 關圖解課程已完成</span></p>
+  <p class="hm-stats"><span><b>${SUBJ.filter((s) => s.status === "active").length}</b> 個開放科目</span><span><b class="hm-done">0</b> 個已讀小節</span><span><b class="hm-lv">0</b> 關圖解已讀完</span></p>
 </section>
 ${course ? `<section class="hm-course">
   <div class="hm-c-copy">
-    <p class="hm-new">新課程</p>
+    <p class="hm-new">新增</p>
     <h2><a href="${course.href}">${esc(course.title)}</a></h2>
     <p class="hm-c-sub">${esc(course.subtitle)}</p>
     <p class="hm-c-d">${esc(course.desc)}</p>
     <ol class="hm-rt">${ROUTES.map((r, k) => `<li class="rt-${r.cls}"><a href="#${r.pre || r.c.lessons[0].id}" data-k="${k}"><b>${r.n}</b><span>${r.c.lessons.length} 關${r.pre ? "＋序章" : ""}　${r.d}</span><i class="hm-bar"><i></i></i></a></li>`).join("")}</ol>
-    <div class="hm-cta"><a class="btn primary" href="#learn">進入課程</a><a class="btn" href="#start-quiz">先做起點測驗</a></div>
+    <div class="hm-cta"><a class="btn primary" href="#learn">開始閱讀</a><a class="btn" href="#start-quiz">先做起點測驗</a></div>
   </div>
   <div class="hm-art">${ladder()}</div>
 </section>` : ""}

@@ -23,7 +23,7 @@
 
   PAGES["kb"] = {
     title: "知識庫",
-    lede: "課程之外的四科筆記：價格行為、威科夫、布林通道、RSI。內容是文字筆記，適合查閱和複習。",
+    lede: "四科筆記：價格行為、威科夫、布林通道、RSI。內容是文字筆記，適合查閱和複習。",
     chips: [["kb", "知識庫"]],
     html: `<div class="kb-cards">${SUBJ.map((x) => `<a class="kb-card" href="#kb-${x.id}"><span class="kb-en">${x.en}</span><b>${x.title}</b><span class="kb-d">${x.desc}</span><span class="kb-tags">${x.tags.map((t) => `<span class="chip">${t}</span>`).join("")}</span><span class="kb-prog" data-id="${x.id}"></span></a>`).join("")}</div>`,
     mount(root) {

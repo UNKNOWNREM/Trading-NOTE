@@ -42,7 +42,7 @@
     if (k[0] === "q") { const x = B.qs[+k.slice(1)]; return x ? { fig: x.fig || "", t: x.q, o: x.o, step: x.step } : null; }
     const x = B.steps[+k.slice(1)]; return x ? { fig: `<p class="small q-cap">${x.cap}</p>`, t: x.t, o: x.o, step: +k.slice(1) + 1 } : null;
   }
-  PAGES["review"] = Object.assign(head("錯題本", "在課程裡答錯的題目會自動放進來，隔 1、3、7、14 天各再考一次；連續答對四次就算真的會了。"), {
+  PAGES["review"] = Object.assign(head("錯題本", "在各關答錯的題目會自動放進來，隔 1、3、7、14 天各再考一次；連續答對四次就算真的會了。"), {
     html: `<div class="prose"><p class="small">紀錄存在這台裝置的瀏覽器裡。換電腦或清除瀏覽資料會不見。</p></div><div class="rv-sum kpi-row"></div><div class="btn-row"><button class="btn rv-all" type="button">今天沒有到期的也想練</button><button class="btn rv-clear" type="button">清空錯題本</button></div><div class="rv-list"></div>`,
     mount(root) {
       let showAll = false;
@@ -51,7 +51,7 @@
         const due = all.filter(([, it]) => it.box < 4 && it.due <= now), wait = all.filter(([, it]) => it.box < 4 && it.due > now), done = all.filter(([, it]) => it.box >= 4);
         $(".rv-sum", root).innerHTML = `<div><span class="t1">今天要複習</span><b>${due.length}</b></div><div><span class="t1">之後再考</span><b>${wait.length}</b></div><div><span class="t1">已經會了</span><b>${done.length}</b></div>`;
         const list = showAll ? due.concat(wait) : due;
-        if (!all.length) { $(".rv-list", root).innerHTML = `<p>還沒有錯題。去上課吧，答錯的題目會自動出現在這裡。</p>`; return; }
+        if (!all.length) { $(".rv-list", root).innerHTML = `<p>還沒有錯題。各關答錯的題目會自動出現在這裡。</p>`; return; }
         if (!list.length) { $(".rv-list", root).innerHTML = `<p>今天的複習做完了。${wait.length ? `下一題要等到 ${new Date(Math.min(...wait.map(([, it]) => it.due))).toLocaleDateString()}。` : ""}</p>`; return; }
         $(".rv-list", root).innerHTML = list.map(([key, it]) => {
           const q = qOf(it.id, it.k); if (!q) return "";
@@ -89,7 +89,7 @@
     TERMS = { list: [...map.values()].sort((a, b) => a.t.localeCompare(b.t, "zh-Hant")), alias };
     return TERMS;
   }
-  PAGES["gloss-all"] = Object.assign(head("全站名詞表", "所有課程名詞卡集中在這裡，可以搜尋；每個名詞都連回教它的那一關。課程動畫裡的粗體術語，滑過去或點一下也會顯示解釋。"), {
+  PAGES["gloss-all"] = Object.assign(head("全站名詞表", "所有名詞卡集中在這裡，可以搜尋；每個名詞都連回講它的那一關。動畫裡的粗體術語，滑過去或點一下也會顯示解釋。"), {
     html: `<div class="dx-form"><label>搜尋名詞<input class="gl-q" type="search" placeholder="例如 Delta、牆、價值區"></label></div><p class="small gl-n"></p><div class="gl-list"></div>`,
     mount(root) {
       const T = terms().list;
@@ -178,17 +178,17 @@
     ["Volume Profile、價值區（VAH／POC／VAL）", "Order Flow Volume Profile 指標", "建議固定用美股正規時段、價值區 70%", "of-6"],
     ["VWAP 與標準差帶", "Order Flow VWAP 指標", "Num deviations ＝ One", "of-vwap"],
     ["大單", "Order Flow Trade Detector", "NQ 最小量 50、GC 最小量 10", "of-5"],
-    ["掛單簿深度、熱力圖", "需要 Level 2 市場數據", "只有 Level 1（Top of Book）時看不到，課程內容當觀念理解即可", "of-1"],
+    ["掛單簿深度、熱力圖", "需要 Level 2 市場數據", "只有 Level 1（Top of Book）時看不到，圖解內容當觀念理解即可", "of-1"],
     ["前日高低、隔夜高低", "手動畫水平線最簡單", "每天盤前畫，和價值區一起合併成區域", "learn-3"],
     ["GEX 位階", "在 TradingView 用 GEX 位階指標（例如 GammaLens Futures GEX Map）", "NinjaTrader 上需要的話手動畫，記得畫淡一點", "learn-3"],
     ["經濟日曆", "TradingView 經濟日曆", "盤前讀環境時查", "of-event"]];
-  PAGES["nt-map"] = Object.assign(head("NinjaTrader 對照", "把課程裡的概念對到 NinjaTrader 8 的功能，並附一組範例設定（3 分鐘 Volumetric 足跡圖）。"), {
-    html: `<div class="prose"><h2>概念 ↔ 功能 ↔ 範例設定</h2></div><div class="table-wrap"><table class="tbl"><thead><tr><th>課程概念</th><th>NinjaTrader 用什麼</th><th>範例設定</th><th>哪一關教</th></tr></thead><tbody>${NT.map((r) => `<tr><td><b>${r[0]}</b></td><td>${r[1]}</td><td>${r[2]}</td><td><a href="#${r[3]}" class="nt-l" data-id="${r[3]}">${r[3]}</a></td></tr>`).join("")}</tbody></table></div>
-<div class="prose"><h2>和課程畫面不一樣的地方</h2><ul>
-<li><b>時間框：</b>課程範例多用 5 分 K，範例設定是 3 分 K。讀法一樣，只是每根 K 線的量和 Delta 會比較小。</li>
-<li><b>每格大小：</b>課程的 footprint 為了好讀，NQ 用 5 點一格；範例設定是 1 點一格，格子多很多、每格數字比較小。剛開始學可以另存一個「每格 20 tick（＝5 點）」的模板，對照課程比較容易，熟了再換回來。</li>
-<li><b>K 線 POC 的顏色：</b>課程用 ● 標示，範例設定用黃色框。</li>
-<li><b>Delta 的位置：</b>課程把 Delta 寫在 K 線下方，NinjaTrader 放在 Bar statistics 表格裡。</li>
+  PAGES["nt-map"] = Object.assign(head("NinjaTrader 對照", "把圖解裡的概念對到 NinjaTrader 8 的功能，並附一組範例設定（3 分鐘 Volumetric 足跡圖）。"), {
+    html: `<div class="prose"><h2>概念 ↔ 功能 ↔ 範例設定</h2></div><div class="table-wrap"><table class="tbl"><thead><tr><th>圖解概念</th><th>NinjaTrader 用什麼</th><th>範例設定</th><th>哪一關教</th></tr></thead><tbody>${NT.map((r) => `<tr><td><b>${r[0]}</b></td><td>${r[1]}</td><td>${r[2]}</td><td><a href="#${r[3]}" class="nt-l" data-id="${r[3]}">${r[3]}</a></td></tr>`).join("")}</tbody></table></div>
+<div class="prose"><h2>和圖解畫面不一樣的地方</h2><ul>
+<li><b>時間框：</b>圖解範例多用 5 分 K，範例設定是 3 分 K。讀法一樣，只是每根 K 線的量和 Delta 會比較小。</li>
+<li><b>每格大小：</b>圖解的 footprint 為了好讀，NQ 用 5 點一格；範例設定是 1 點一格，格子多很多、每格數字比較小。剛開始學可以另存一個「每格 20 tick（＝5 點）」的模板，對照圖解比較容易，熟了再換回來。</li>
+<li><b>K 線 POC 的顏色：</b>圖解用 ● 標示，範例設定用黃色框。</li>
+<li><b>Delta 的位置：</b>圖解把 Delta 寫在 K 線下方，NinjaTrader 放在 Bar statistics 表格裡。</li>
 <li><b>沒有 Level 2：</b>路線 1 第 2 關的掛單簿動畫，只有 Level 1 時看不到深度，只能看最佳買賣價。</li></ul>
 <p class="small">選單名稱可能因版本不同略有差異；以實際使用的 NinjaTrader 版本為準。</p></div>`,
     mount(root) { root.querySelectorAll(".nt-l").forEach((a) => { a.textContent = title(a.dataset.id); }); }

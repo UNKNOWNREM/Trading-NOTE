@@ -1,4 +1,4 @@
-/* 圖解課程：期貨 × 選擇權整合 SOP。這個檔案放共用元件、課程地圖、第 1–3 關。 */
+/* 圖解：期貨 × 選擇權整合 SOP。這個檔案放共用元件、圖解地圖、第 1–3 關。 */
 (function () {
   const PAGES = (window.__PAGES = window.__PAGES || {});
   const $ = (r, s) => r.querySelector(s);
@@ -62,11 +62,11 @@
   /* ---------- shared pieces ---------- */
   const T = (word, def) => `<span class="term" tabindex="0" data-tip="${def.replace(/"/g, "&quot;")}">${word}</span>`;
   function strip(C, cur) {
-    return `<nav class="lvl" aria-label="${C.name}課程進度">${C.lessons.map((l, i) => `<a href="#${l.id}" class="lvl-i${isDone(C, l.id) ? " done" : ""}${i === cur ? " cur" : ""}"${i === cur ? ' aria-current="page"' : ""}><span class="lvl-n">${isDone(C, l.id) ? "✓" : i + 1}</span><span class="lvl-t">${l.short}</span></a>`).join("")}</nav>`;
+    return `<nav class="lvl" aria-label="${C.name}閱讀進度">${C.lessons.map((l, i) => `<a href="#${l.id}" class="lvl-i${isDone(C, l.id) ? " done" : ""}${i === cur ? " cur" : ""}"${i === cur ? ' aria-current="page"' : ""}><span class="lvl-n">${isDone(C, l.id) ? "✓" : i + 1}</span><span class="lvl-t">${l.short}</span></a>`).join("")}</nav>`;
   }
   function foot(C, i) {
     const nx = nextAfter(C, i);
-    return `<div class="lesson-foot" id="lf"><p class="lf-status"></p><div class="btn-row"><button class="btn" id="lf-mark" type="button">標記本關完成</button>${nx ? `<a class="btn primary" href="#${nx.l.id}">${nx.label}</a>` : `<a class="btn primary" href="#learn">回課程地圖</a>`}<a class="btn" href="#learn">課程地圖</a></div></div>`;
+    return `<div class="lesson-foot" id="lf"><p class="lf-status"></p><div class="btn-row"><button class="btn" id="lf-mark" type="button">標記本關完成</button>${nx ? `<a class="btn primary" href="#${nx.l.id}">${nx.label}</a>` : `<a class="btn primary" href="#learn">回圖解地圖</a>`}<a class="btn" href="#learn">圖解地圖</a></div></div>`;
   }
   function remember(t) { return `<div class="remember"><b class="r-h">一句話記住</b>${t}</div>`; }
   function quizHTML(qs, pre) {
@@ -124,8 +124,8 @@
 
   /* ---------- course map ---------- */
   PAGES.learn = {
-    title: "圖解課程",
-    lede: "三條路線，建議依序走：先學看懂訂單流，再學選擇權和市商對沖，最後用整合 SOP 把兩邊串起來。每關一張會動的圖、一個可以自己拉的模擬器、幾題小測驗。名詞第一次出現時，把滑鼠移上去就有白話解釋。",
+    title: "訂單流與選擇權　圖解地圖",
+    lede: "三條路線，建議依序讀：先看懂訂單流，再看選擇權和市商對沖，最後用整合 SOP 把兩邊串起來。每關一張會動的圖、一個可以自己拉的模擬器、幾題小測驗。名詞第一次出現時，把滑鼠移上去就有白話解釋。",
     chips: [["buy", `訂單流 ${OFC.lessons.length} 關`], ["gamma", `選擇權 ${OPC.lessons.length} 關`], ["sell", `整合 SOP ${SOP.lessons.length} 關`], ["", "進度存在這個瀏覽器"]],
     html: `<div class="start-cta"><div style="flex:1;min-width:220px"><div class="sc-t" id="lm-next-t"></div><div class="sc-d" id="lm-next-d"></div><div class="prog" aria-hidden="true"><i id="lm-bar" style="width:0"></i></div><div class="small" id="lm-count"></div></div><a class="btn primary" id="lm-go" href="#of-1">開始</a></div>
 <div id="lm-tracks"></div>
@@ -139,11 +139,11 @@
         $(root, "#lm-count").textContent = `已完成 ${n} / ${all.length} 關`;
         $(root, "#lm-next-t").textContent = nx ? (n ? "繼續：" : "從這裡開始：") + nx.C.name + "　" + nx.l.short : "全部完成";
         $(root, "#lm-next-d").textContent = nx ? nx.l.can : "可以回頭重玩任何一關，或到「C 整合」用檢查清單和交易紀錄練習。";
-        const go = $(root, "#lm-go"); go.href = "#" + (nx ? nx.l.id : "cx-sop"); go.textContent = nx ? (n ? "繼續上課" : "開始第一關") : "前往整合 SOP";
+        const go = $(root, "#lm-go"); go.href = "#" + (nx ? nx.l.id : "cx-sop"); go.textContent = nx ? (n ? "繼續閱讀" : "開始第一關") : "前往整合 SOP";
         $(root, "#lm-tracks").innerHTML = TRACKS.map((C, ti) => {
           const d = C.lessons.filter((l) => isDone(C, l.id)).length, tn = C.lessons.find((l) => !isDone(C, l.id));
           return `<div class="prose"><h2>路線 ${ti + 1}　${C.name}　<span class="small" style="font-family:var(--font-body);font-weight:400">${d} / ${C.lessons.length} 關</span></h2></div>
-          <ol class="cmap">${C.lessons.map((l, i) => `<li class="${isDone(C, l.id) ? "done" : l === tn && nx && nx.C === C ? "next" : ""}"><span class="lvl-n">${isDone(C, l.id) ? "✓" : i + 1}</span><a class="cm" href="#${l.id}"><div class="cm-t">${l.title}</div><div class="cm-d">學完你能：${l.can}</div><div class="cm-m">約 ${l.min} 分鐘${isDone(C, l.id) ? "　·　已完成" : ""}</div></a></li>`).join("")}</ol>`;
+          <ol class="cmap">${C.lessons.map((l, i) => `<li class="${isDone(C, l.id) ? "done" : l === tn && nx && nx.C === C ? "next" : ""}"><span class="lvl-n">${isDone(C, l.id) ? "✓" : i + 1}</span><a class="cm" href="#${l.id}"><div class="cm-t">${l.title}</div><div class="cm-d">讀完你能：${l.can}</div><div class="cm-m">約 ${l.min} 分鐘${isDone(C, l.id) ? "　·　已完成" : ""}</div></a></li>`).join("")}</ol>`;
         }).join("");
       }
       paint();

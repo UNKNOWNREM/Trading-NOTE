@@ -1,7 +1,7 @@
-/* TRADING NOTES 科目表（沿用舊站的科目與分類；ofop 是新的圖解課程）
-   status：active＝開放、merged＝內容已併入圖解課程、coming＝籌備中 */
+/* TRADING NOTES 科目表（沿用舊站的科目與分類；ofop 是新增的圖解科目）
+   status：active＝開放、merged＝內容已收進訂單流與選擇權圖解、coming＝籌備中 */
 window.SUBJECTS = [
-  {"id":"ofop","title":"訂單流與選擇權","subtitle":"Order Flow & Options（圖解課程）","desc":"三條圖解路線：從訂單流看誰在主動、從選擇權看哪裡有對沖流，再用整合 SOP 把兩者接成每天照做的流程。每一關都有逐步動畫、小問題和練習區。","tags":["Footprint","GEX","圖解動畫"],"status":"active","category":"市場微結構與流動性","href":"#learn","kind":"course","isNew":true},
+  {"id":"ofop","title":"訂單流與選擇權","subtitle":"Order Flow & Options（圖解）","desc":"三條圖解路線：從訂單流看誰在主動、從選擇權看哪裡有對沖流，再用整合 SOP 把兩者接成每天照做的流程。每一關都有逐步動畫、小問題和練習區。","tags":["Footprint","GEX","圖解動畫"],"status":"active","category":"市場微結構與流動性","href":"#learn","kind":"course","isNew":true},
   {"id":"pa","title":"Price Action","subtitle":"Al Brooks — Reading Price Charts Bar by Bar","desc":"逐根 K 線解讀市場博弈本質，涵蓋趨勢、區間、信號棒完整體系","tags":["趨勢","形態","K線"],"status":"active","category":"價格行為與結構","href":"#kb-pa"},
   {"id":"chan","title":"纏論","subtitle":"纏中說禪技術理論","desc":"筆、線段、中樞、趨勢的完整分析框架，走勢唯一性原理","tags":["走勢分類","中樞","買賣點"],"status":"coming","category":"波動幾何與時間週期"},
   {"id":"wyckoff","title":"Wyckoff","subtitle":"Wyckoff Method","desc":"吸籌/派發結構、彈簧/推升、複合人操盤邏輯與成交量分析","tags":["籌碼分析","量價","吸籌派發"],"status":"active","category":"機構交易體系","href":"#kb-wyckoff"},

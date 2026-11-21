@@ -1,4 +1,4 @@
-/* 圖解課程第 4–7 關。共用元件在 course.js（window.COURSE）。 */
+/* 圖解第 4–7 關。共用元件在 course.js（window.COURSE）。 */
 (function () {
   const PAGES = (window.__PAGES = window.__PAGES || {});
   const { SOP, LESSONS, T, strip, foot, remember, quizHTML, mountLesson, loop, interp, nf, sgn, RM, $ } = window.COURSE;
@@ -310,7 +310,7 @@ ${foot(SOP, 5)}`,
 <div class="panel" style="display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center"><div><div class="small">第一次就答對</div><div class="k-v" style="font-family:var(--font-display);font-size:28px;font-weight:700" id="l7-score">0 / 6</div></div><div class="small" style="flex:1;min-width:220px" id="l7-say">每題的四張卡就是你盤中要問自己的四個問題。</div></div>
 ${quizHTML(L7Q, "l7-")}
 ${remember("每次下單前問四件事：<b>環境是什麼？在不在區內？訂單流確認了嗎？劇本條件成立嗎？</b>任何一個答不出來，就是觀望。")}
-<div class="prose"><h2>接下來</h2><p>到 <a href="#learn-1">路線 3 整合 SOP</a> 用進場前檢查清單和交易紀錄表，在 Replay 裡練習。一般建議每種設定至少 100 筆才有統計意義，在那之前，課程裡的所有劇本都只是假設。</p></div>
+<div class="prose"><h2>接下來</h2><p>到 <a href="#learn-1">路線 3 整合 SOP</a> 用進場前檢查清單和交易紀錄表，在 Replay 裡練習。一般建議每種設定至少 100 筆才有統計意義，在那之前，這裡的所有劇本都只是假設。</p></div>
 ${foot(SOP, 6)}`,
     mount(root) {
       const first = {};

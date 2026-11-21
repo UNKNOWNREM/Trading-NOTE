@@ -1,4 +1,4 @@
-/* 圖解課程　路線 1：訂單流（9 關）。例子都是虛構數字。 */
+/* 圖解　路線 1：訂單流（9 關）。例子都是虛構數字。 */
 (function () {
   const PAGES = (window.__PAGES = window.__PAGES || {});
   const { OFC: C, T, lesson, loop, rng, nf, sgn, RM, $ } = window.COURSE;
@@ -219,7 +219,7 @@
 <div class="ctl"><label for="o4-min">最小量（太小不標） <b id="o4-min-v"></b></label><input id="o4-min" type="range" min="0" max="40" step="1" value="0"></div></div>
 <p class="small" id="o4-sum" style="margin:0"></p></div>
 <div class="prose"><h2>為什麼要斜著比？</h2><p>價格要往上走一格，買方必須把<b>上面那一檔</b>的賣單吃光。所以「這一格的主動買（Ask）」要和「下面一檔的主動賣（Bid）」比，看這一小段價格裡誰比較用力。賣方失衡反過來：這一格的 Bid 和上面一檔的 Ask 比。</p>
-<h2>門檻怎麼選？</h2><p>沒有標準答案：ATAS 預設 150%，RAIN 用 200%，Anastasia 課程用 300%，有人說 4x（400%）。建議用 Replay 看 5～10 個熟悉的時段，調到被標出的格子約佔整根的 10～20%：太多＝太鬆，幾乎沒有＝太緊。再加上「最小量」，避免 3 口對 1 口這種沒意義的 300%。</p></div>`,
+<h2>門檻怎麼選？</h2><p>沒有標準答案：ATAS 預設 150%，RAIN 用 200%，Anastasia 用 300%，有人說 4x（400%）。建議用 Replay 看 5～10 個熟悉的時段，調到被標出的格子約佔整根的 10～20%：太多＝太鬆，幾乎沒有＝太緊。再加上「最小量」，避免 3 口對 1 口這種沒意義的 300%。</p></div>`,
     quiz: [
       { q: "某價位 Ask＝40，下一檔的 Bid＝10。這是幾倍？算不算 4x 失衡？", o: [["4 倍，剛好 400%，算", true, "40 ÷ 10 ＝ 4。門檻 4x 時剛好達標（要看軟體是 ≥ 還是 >）。"], ["0.25 倍，不算", false, "買方失衡是 Ask ÷ 下一檔 Bid，不是反過來。"], ["要和同一價位的 Bid 比", false, "Footprint 的失衡是斜著比，不是橫著比。"]] },
       { q: "連續 3 個相鄰價位都出現買方失衡（堆疊失衡）。常見的用法是？", o: [
@@ -276,7 +276,7 @@
 <div class="prose"><h2>五個訊號總表</h2></div>
 <div class="table-wrap"><table><thead><tr><th>訊號</th><th>在阻力位（做空）看什麼</th><th>在支撐位（做多）看什麼</th></tr></thead><tbody>
 <tr><td>Absorption</td><td>同價位 Bid 與 Ask 都很大，價格不過</td><td>同左</td></tr><tr><td>大限價單</td><td>Ask 側異常大量</td><td>Bid 側異常大量</td></tr><tr><td>被套交易者</td><td>頂部大量後，下一根轉空</td><td>底部大量後，下一根轉多</td></tr><tr><td>主動交易者</td><td>Bid 側大量（主動賣進場）</td><td>Ask 側大量（主動買進場）</td></tr><tr><td>Delta 轉向</td><td>由正轉負</td><td>由負轉正</td></tr></tbody></table></div>
-<div class="prose"><p>教學影片的用法：關鍵位出現 2～3 個就夠考慮進場；錯過也沒關係，只做第一次觸碰。這些都是推論式的解讀，不是統計驗證過的規律。</p></div>`,
+<div class="prose"><p>常見的用法：關鍵位出現 2～3 個就夠考慮進場；錯過也沒關係，只做第一次觸碰。這些都是推論式的解讀，不是統計驗證過的規律。</p></div>`,
     quiz: [
       { q: "在阻力位，某一格 Ask 側出現 193 口（平均約 40），Bid 只有 8 口。為什麼可能代表「大賣家」？", o: [
         ["因為 Ask 數字代表限價買單", false, "Ask 側數字是主動買方吃掉的量。"],

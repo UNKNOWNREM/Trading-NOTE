@@ -43,7 +43,7 @@ ${o.intro ? `<div class="prose">${o.intro}</div>` : ""}
 ${o.after ? `<div class="prose">${o.after}</div>` : ""}
 <div class="prose"><h2>常見錯誤</h2></div>
 <div class="mist">${o.mist.map((m) => `<div class="mi"><div class="mi-bad"><span class="mi-k">✗ 常見誤解</span>${m[0]}</div><div class="mi-good"><span class="mi-k">✓ 正確</span>${m[1]}</div></div>`).join("")}</div>
-<div class="prose"><h2>常見疑問</h2><p class="small">沒有講師可以問，所以把初學者最常問的問題先寫好。點問題看答案。</p></div>
+<div class="prose"><h2>常見疑問</h2><p class="small">把常見的疑問先寫好，點問題看答案。</p></div>
 <div class="faq">${o.faq.map((f) => `<details><summary>${f[0]}</summary><p>${f[1]}</p></details>`).join("")}</div>
 <div class="prose"><h2>看圖判斷</h2><p class="small">答錯會告訴你錯在哪，也可以直接重播對應的那一步動畫。全部答對就完成這一關。</p></div>
 ${o.qs.map((x, k) => `<div class="quiz fpq" data-k="${k}">${x.fig || ""}<p class="q-t"><span class="q-tag">看圖題 ${k + 1}</span>${x.q}</p><div class="q-opts">${x.o.map((y, j) => `<button class="q-opt" type="button" data-j="${j}">${y[0]}</button>`).join("")}</div><div class="q-fb" aria-live="polite"></div></div>`).join("")}
