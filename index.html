@@ -1,80 +1,71 @@
 <!DOCTYPE html>
-<html lang="zh-TW" data-theme="dark">
+<html lang="zh-Hant">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TRADING NOTES</title>
-    <meta name="description" content="個人交易學習系統 — Price Action、SMC、纏論、Volume Profile 完整知識庫">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%234A6FA5'/><path d='M6 20h4l3-6 3 4 4-8 4 6h4' stroke='%23fff' stroke-width='2' fill='none'/></svg>" type="image/svg+xml">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Space+Mono:wght@400;700&family=Noto+Sans+TC:wght@400;600;800&family=Crimson+Text:wght@400;600&display=swap" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- MathJax for LaTeX rendering -->
-    <script>
-        MathJax = {
-            tex: {
-                inlineMath: [['$', '$'], ['\\(', '\\)']],
-                displayMath: [['$$', '$$'], ['\\[', '\\]']],
-                processEscapes: true,
-                processEnvironments: true
-            },
-            options: {
-                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
-            }
-        };
-    </script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <!-- External CSS -->
-    <link rel="stylesheet" href="style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>交易研究室</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/site.css">
+<link rel="stylesheet" href="css/course.css">
 </head>
 <body>
-    <div id="app">
-        <aside id="sidebar" class="glass">
-            <div class="sidebar-header">
-                <div class="logo" onclick="Router.goHome()">
-                    <i class="fas fa-chart-line"></i>
-                    <span>TRADING NOTES</span>
-                </div>
-                <div class="search-box" id="sidebar-search-box" style="display:none">
-                    <i class="fas fa-search"></i>
-                    <input type="text" id="search-input" placeholder="搜尋章節或內容...">
-                </div>
-            </div>
-
-            <div id="sidebar-subjects"></div>
-
-            <div id="sidebar-menu"></div>
-        </aside>
-
-        <div id="sidebar-overlay"></div>
-
-        <main id="main-content">
-            <header id="top-bar" class="glass">
-                <div class="left">
-                    <button id="mobile-menu-toggle" class="icon-btn">
-                        <i class="fas fa-bars"></i>
-                    </button>
-                    <div id="breadcrumb-display" class="breadcrumb"></div>
-                </div>
-                <div class="right">
-                    <div class="font-controls glass">
-                        <button id="font-down" title="字體縮小">A-</button>
-                        <span id="font-size-display">16</span>
-                        <button id="font-up" title="字體放大">A+</button>
-                    </div>
-                    <button id="theme-toggle" class="icon-btn" title="切換主題">
-                        <i class="fas fa-sun"></i>
-                    </button>
-                </div>
-            </header>
-
-            <div id="content"></div>
-        </main>
+<div class="shell">
+  <aside class="rail" aria-label="章節導覽">
+    <div class="brand"><a href="#home"><div class="b-name">交易研究室</div><div class="b-sub">訂單流・選擇權・價格行為</div></a></div>
+    <nav id="nav"></nav>
+  </aside>
+  <div class="main" id="main">
+    <div class="topbar">
+      <button class="icon-btn" id="menu-btn" aria-label="開啟章節導覽">目錄</button>
+      <div class="search-wrap"><input id="q" type="search" placeholder="搜尋全站，例如 POC、Delta、Gamma Flip（按 / 開始）" aria-label="搜尋全站" autocomplete="off"><div class="results" id="results" role="listbox"></div></div>
+      <button class="icon-btn" id="theme" aria-label="切換淺色與深色">深淺色</button>
     </div>
-
-    <script src="subjects.js"></script>
-    <script src="script.js"></script>
-    <script src="app.js"></script>
+    <main id="view"></main>
+  </div>
+</div>
+<script src="js/charts.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-2.js"></script>
+<script src="js/course-of.js"></script>
+<script src="js/course-op.js"></script>
+<script src="js/player.js"></script>
+<script src="js/kit.js"></script>
+<script src="js/lesson-fut.js"></script>
+<script src="js/lesson-book.js"></script>
+<script src="js/lesson-fp.js"></script>
+<script src="js/lesson-delta.js"></script>
+<script src="js/lesson-cvd.js"></script>
+<script src="js/lesson-imb.js"></script>
+<script src="js/lesson-vp.js"></script>
+<script src="js/lesson-vwap.js"></script>
+<script src="js/lesson-tpo.js"></script>
+<script src="js/lesson-sess.js"></script>
+<script src="js/lesson-event.js"></script>
+<script src="js/lesson-five.js"></script>
+<script src="js/lesson-risk.js"></script>
+<script src="js/lesson-trade.js"></script>
+<script src="js/lesson-psy.js"></script>
+<script src="js/lesson-op0.js"></script>
+<script src="js/lesson-op1.js"></script>
+<script src="js/lesson-op2.js"></script>
+<script src="js/lesson-op3.js"></script>
+<script src="js/lesson-op4.js"></script>
+<script src="js/lesson-skew.js"></script>
+<script src="js/op-kit.js"></script>
+<script src="js/lesson-ledger.js"></script>
+<script src="js/lesson-gex.js"></script>
+<script src="js/lesson-expiry.js"></script>
+<script src="js/lesson-vc.js"></script>
+<script src="js/lesson-terrain.js"></script>
+<script src="js/lesson-dex.js"></script>
+<script src="js/sop-kit.js"></script>
+<script src="js/lesson-sop.js"></script>
+<script src="js/lesson-sopAB.js"></script>
+<script src="js/kb.js"></script>
+<script src="js/home.js"></script>
+<script src="js/aids.js"></script>
+<script src="js/app.js"></script>
 </body>
 </html>
